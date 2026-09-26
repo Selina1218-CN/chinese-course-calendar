@@ -24,7 +24,7 @@ h2,h3{margin-top:0}ul{padding-left:20px}.list{margin-top:18px}.row{display:grid;
 <body>
 <header><div class="wrap"><h1>对外汉语课程日历</h1><p>Chinese Language Course Calendar</p></div></header>
 <main>
-<div class="notice"><b>示例版：</b>把真实课程表发给 ChatGPT 后，可直接替换为正式课程，无需你改代码。</div>
+<div class="notice"><b>课程日历：</b>已更新 9月29日课程为鲁迅《铸剑》。后续有调整可继续直接告诉 ChatGPT。</div>
 <section class="card hero">
 <span class="badge" id="weekBadge">This Week</span>
 <h2 id="weekTitle">本周课程</h2><p id="weekDate" class="muted"></p><p id="weekEn"></p>
@@ -45,7 +45,7 @@ h2,h3{margin-top:0}ul{padding-left:20px}.list{margin-top:18px}.row{display:grid;
 const COURSES=[
 {date:"2026-09-14",week:"第1周 · Week 1",title:"第一课《你好》",en:"Lesson 1 · Hello",vocab:["你好","老师","学生","名字"],grammar:["A 是 B","你叫什么名字？"],pron:["b p m f；a o e i u ü；四声"],culture:["中文姓名与称呼"],homework:["复习生词","练习四声"]},
 {date:"2026-09-21",week:"第2周 · Week 2",title:"第二课《汉语不太难》",en:"Lesson 2 · Chinese is not too difficult",vocab:["汉语","英语","难","学习"],grammar:["很 / 不太 + 形容词","吗 疑问句"],pron:["an en ang eng ong；轻声"],culture:["中国课堂常用语"],homework:["朗读课文","完成语音练习"]},
-{date:"2026-09-28",week:"第3周 · Week 3",title:"第三课《明天见》",en:"Lesson 3 · See you tomorrow",vocab:["今天","明天","上午","下午","见"],grammar:["时间词的位置","……见"],pron:["j q x；“不”的变调"],culture:["中国人的告别表达"],homework:["课文朗读","生词复习"]},
+{date:"2026-09-29",week:"第3周 · Week 3",title:"鲁迅《铸剑》",en:"Lu Xun · Forging the Swords",vocab:["鲁迅","《铸剑》","眉间尺","复仇"],grammar:[],pron:[],culture:["鲁迅与中国现代文学","《铸剑》的故事背景与主题"],homework:["阅读《铸剑》","整理不理解的词语和段落"]},
 {date:"2026-10-12",week:"第4周 · Week 4",title:"第四课《你去哪儿》",en:"Lesson 4 · Where are you going?",vocab:["哪儿","学校","商店","图书馆","去"],grammar:["疑问代词“哪儿”","去 + 地点"],pron:["z c s"],culture:["校园生活"],homework:["完成课后练习","准备两人对话"]},
 {date:"2026-10-19",week:"第5周 · Week 5",title:"第五课《这是王老师》",en:"Lesson 5 · This is Teacher Wang",vocab:["这","那","谁","老师","朋友"],grammar:["这/那 + 是……","谁 疑问句"],pron:["zh ch sh r"],culture:["称谓与礼貌"],homework:["介绍一位同学","复习1—5课"]},
 {date:"2026-10-26",week:"第6周 · Week 6",title:"复习与口语练习",en:"Review & Speaking Practice",vocab:["第1—5课重点词汇"],grammar:["综合复习"],pron:["声调与变调复习"],culture:["课堂情境练习"],homework:["准备阶段口语任务"]}
