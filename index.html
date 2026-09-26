@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>对外汉语课程日历</title>
+<style>
+:root{--red:#a9271f;--soft:#fff1ee;--bg:#f6f7fb;--line:#e5e7eb;--muted:#6b7280}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif;color:#1f2937}
+header{background:linear-gradient(135deg,#8e1f18,#e46c59);color:#fff;padding:32px 18px}
+.wrap{max-width:1100px;margin:auto}.wrap h1{margin:0 0 6px;font-size:32px}.wrap p{margin:0;opacity:.9}
+main{max-width:1100px;margin:24px auto;padding:0 14px}.card{background:#fff;border-radius:16px;box-shadow:0 10px 30px #00000012;padding:20px}
+.hero{margin-bottom:18px}.grid{display:grid;grid-template-columns:1.25fr .75fr;gap:18px}.muted{color:var(--muted)}
+.head{display:flex;justify-content:space-between;align-items:center}.head button{border:0;background:#f8e8e5;color:#8e1f18;padding:8px 12px;border-radius:9px;cursor:pointer}
+.week,.days{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}.week div{text-align:center;color:var(--muted);font-size:12px;padding:8px 0}
+.day{min-height:88px;border:1px solid var(--line);border-radius:10px;padding:7px;cursor:pointer;background:#fff}.day:hover{border-color:#d89b92}.today{background:#fff8d9}
+.tag{margin-top:6px;background:var(--soft);color:var(--red);font-size:10px;padding:5px;border-radius:6px;line-height:1.2}
+h2,h3{margin-top:0}ul{padding-left:20px}.list{margin-top:18px}.row{display:grid;grid-template-columns:115px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.badge{display:inline-block;background:var(--soft);color:var(--red);padding:5px 9px;border-radius:999px;font-size:12px;font-weight:700}
+.notice{background:#fff8e8;border:1px solid #f0dfa3;border-radius:12px;padding:11px 13px;margin-bottom:16px;font-size:14px}
+@media(max-width:800px){.grid{grid-template-columns:1fr}.day{min-height:68px}.wrap h1{font-size:26px}}
+</style>
+</head>
+<body>
+<header><div class="wrap"><h1>对外汉语课程日历</h1><p>Chinese Language Course Calendar</p></div></header>
+<main>
+<div class="notice"><b>示例版：</b>把真实课程表发给 ChatGPT 后，可直接替换为正式课程，无需你改代码。</div>
+<section class="card hero">
+<span class="badge" id="weekBadge">This Week</span>
+<h2 id="weekTitle">本周课程</h2><p id="weekDate" class="muted"></p><p id="weekEn"></p>
+</section>
+<div class="grid">
+<section class="card">
+<div class="head"><button onclick="moveMonth(-1)">‹ 上月</button><h2 id="monthTitle"></h2><button onclick="moveMonth(1)">下月 ›</button></div>
+<div class="week"><div>一<br>Mon</div><div>二<br>Tue</div><div>三<br>Wed</div><div>四<br>Thu</div><div>五<br>Fri</div><div>六<br>Sat</div><div>日<br>Sun</div></div>
+<div class="days" id="days"></div>
+<p class="muted">点击日期查看课程详情 · Click a date to view details.</p>
+</section>
+<aside class="card" id="detail"><h2>课程详情</h2><p class="muted">Class Details</p><p>请选择一个上课日期。</p></aside>
+</div>
+<section class="card list"><h2>本学期课程一览 <span class="muted">Semester Overview</span></h2><div id="courseList"></div></section>
+</main>
+<script>
+/* ======== 以后真正需要改的只有下面这段课程数据 ======== */
+const COURSES=[
+{date:"2026-09-14",week:"第1周 · Week 1",title:"第一课《你好》",en:"Lesson 1 · Hello",vocab:["你好","老师","学生","名字"],grammar:["A 是 B","你叫什么名字？"],pron:["b p m f；a o e i u ü；四声"],culture:["中文姓名与称呼"],homework:["复习生词","练习四声"]},
+{date:"2026-09-21",week:"第2周 · Week 2",title:"第二课《汉语不太难》",en:"Lesson 2 · Chinese is not too difficult",vocab:["汉语","英语","难","学习"],grammar:["很 / 不太 + 形容词","吗 疑问句"],pron:["an en ang eng ong；轻声"],culture:["中国课堂常用语"],homework:["朗读课文","完成语音练习"]},
+{date:"2026-09-28",week:"第3周 · Week 3",title:"第三课《明天见》",en:"Lesson 3 · See you tomorrow",vocab:["今天","明天","上午","下午","见"],grammar:["时间词的位置","……见"],pron:["j q x；“不”的变调"],culture:["中国人的告别表达"],homework:["课文朗读","生词复习"]},
+{date:"2026-10-12",week:"第4周 · Week 4",title:"第四课《你去哪儿》",en:"Lesson 4 · Where are you going?",vocab:["哪儿","学校","商店","图书馆","去"],grammar:["疑问代词“哪儿”","去 + 地点"],pron:["z c s"],culture:["校园生活"],homework:["完成课后练习","准备两人对话"]},
+{date:"2026-10-19",week:"第5周 · Week 5",title:"第五课《这是王老师》",en:"Lesson 5 · This is Teacher Wang",vocab:["这","那","谁","老师","朋友"],grammar:["这/那 + 是……","谁 疑问句"],pron:["zh ch sh r"],culture:["称谓与礼貌"],homework:["介绍一位同学","复习1—5课"]},
+{date:"2026-10-26",week:"第6周 · Week 6",title:"复习与口语练习",en:"Review & Speaking Practice",vocab:["第1—5课重点词汇"],grammar:["综合复习"],pron:["声调与变调复习"],culture:["课堂情境练习"],homework:["准备阶段口语任务"]}
+];
+/* ================================================== */
+const map=Object.fromEntries(COURSES.map(x=>[x.date,x]));
+const today=new Date(); let cur=new Date(Number(COURSES[0].date.slice(0,4)),Number(COURSES[0].date.slice(5,7))-1,1);
+const pad=n=>String(n).padStart(2,"0"), key=(y,m,d)=>`${y}-${pad(m+1)}-${pad(d)}`;
+const parse=s=>{const[a,b,c]=s.split("-").map(Number);return new Date(a,b-1,c)};
+const esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+function render(){
+ const y=cur.getFullYear(),m=cur.getMonth(); monthTitle.textContent=`${y}年${m+1}月 · ${cur.toLocaleString("en-US",{month:"long"})} ${y}`;
+ let h="",first=(new Date(y,m,1).getDay()+6)%7,n=new Date(y,m+1,0).getDate();
+ for(let i=0;i<first;i++)h+="<div></div>";
+ for(let d=1;d<=n;d++){let k=key(y,m,d),c=map[k],is=today.getFullYear()==y&&today.getMonth()==m&&today.getDate()==d;
+ h+=`<div class="day ${is?"today":""}" onclick="show('${k}')"><b>${d}</b>${c?`<div class="tag">${esc(c.week)}<br>${esc(c.title)}</div>`:""}</div>`}
+ days.innerHTML=h;
+}
+function show(k){
+ const c=map[k]; if(!c){detail.innerHTML=`<h2>${k}</h2><p>当天没有课程安排。</p><p class="muted">No class scheduled.</p>`;return}
+ const block=(t,a)=>a?.length?`<h3>${t}</h3><ul>${a.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:"";
+ detail.innerHTML=`<span class="badge">${esc(c.week)}</span><h2>${esc(c.title)}</h2><p class="muted">${esc(c.en)} · ${k}</p>${block("生词 · Vocabulary",c.vocab)}${block("语法 · Grammar",c.grammar)}${block("语音 · Pronunciation",c.pron)}${block("文化 · Culture",c.culture)}${block("作业 · Homework",c.homework)}`;
+}
+function moveMonth(n){cur.setMonth(cur.getMonth()+n);render()}
+function list(){courseList.innerHTML=COURSES.map(c=>`<div class="row"><div><b>${esc(c.week.split("·")[0])}</b><br><span class="muted">${c.date}</span></div><div><b>${esc(c.title)}</b><br><span class="muted">${esc(c.en)}</span></div></div>`).join("")}
+function thisWeek(){let now=new Date(),best=COURSES[0],dist=Infinity;for(const c of COURSES){let d=Math.abs(parse(c.date)-now);if(d<dist){dist=d;best=c}}weekBadge.textContent=best.week;weekTitle.textContent=best.title;weekDate.textContent=best.date;weekEn.textContent=best.en}
+render();list();thisWeek();
+</script>
+</body>
+</html>
