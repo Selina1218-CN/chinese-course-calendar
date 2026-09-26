@@ -24,7 +24,7 @@ h2,h3{margin-top:0}ul{padding-left:20px}.list{margin-top:18px}.row{display:grid;
 <body>
 <header><div class="wrap"><h1>对外汉语课程日历</h1><p>Chinese Language Course Calendar</p></div></header>
 <main>
-<div class="notice"><b>课程日历：</b>已更新 9月29日课程为鲁迅《铸剑》。后续有调整可继续直接告诉 ChatGPT。</div>
+<div class="notice"><b>课程主题：</b>本学期课程均围绕鲁迅作品展开，当前安排包括《孔乙己》《祝福》《铸剑》《故乡》《药》《阿Q正传》。</div>
 <section class="card hero">
 <span class="badge" id="weekBadge">This Week</span>
 <h2 id="weekTitle">本周课程</h2><p id="weekDate" class="muted"></p><p id="weekEn"></p>
@@ -43,12 +43,12 @@ h2,h3{margin-top:0}ul{padding-left:20px}.list{margin-top:18px}.row{display:grid;
 <script>
 /* ======== 以后真正需要改的只有下面这段课程数据 ======== */
 const COURSES=[
-{date:"2026-09-14",week:"第1周 · Week 1",title:"第一课《你好》",en:"Lesson 1 · Hello",vocab:["你好","老师","学生","名字"],grammar:["A 是 B","你叫什么名字？"],pron:["b p m f；a o e i u ü；四声"],culture:["中文姓名与称呼"],homework:["复习生词","练习四声"]},
-{date:"2026-09-21",week:"第2周 · Week 2",title:"第二课《汉语不太难》",en:"Lesson 2 · Chinese is not too difficult",vocab:["汉语","英语","难","学习"],grammar:["很 / 不太 + 形容词","吗 疑问句"],pron:["an en ang eng ong；轻声"],culture:["中国课堂常用语"],homework:["朗读课文","完成语音练习"]},
-{date:"2026-09-29",week:"第3周 · Week 3",title:"鲁迅《铸剑》",en:"Lu Xun · Forging the Swords",vocab:["鲁迅","《铸剑》","眉间尺","复仇"],grammar:[],pron:[],culture:["鲁迅与中国现代文学","《铸剑》的故事背景与主题"],homework:["阅读《铸剑》","整理不理解的词语和段落"]},
-{date:"2026-10-12",week:"第4周 · Week 4",title:"第四课《你去哪儿》",en:"Lesson 4 · Where are you going?",vocab:["哪儿","学校","商店","图书馆","去"],grammar:["疑问代词“哪儿”","去 + 地点"],pron:["z c s"],culture:["校园生活"],homework:["完成课后练习","准备两人对话"]},
-{date:"2026-10-19",week:"第5周 · Week 5",title:"第五课《这是王老师》",en:"Lesson 5 · This is Teacher Wang",vocab:["这","那","谁","老师","朋友"],grammar:["这/那 + 是……","谁 疑问句"],pron:["zh ch sh r"],culture:["称谓与礼貌"],homework:["介绍一位同学","复习1—5课"]},
-{date:"2026-10-26",week:"第6周 · Week 6",title:"复习与口语练习",en:"Review & Speaking Practice",vocab:["第1—5课重点词汇"],grammar:["综合复习"],pron:["声调与变调复习"],culture:["课堂情境练习"],homework:["准备阶段口语任务"]}
+{date:"2026-09-14",week:"第1周 · Week 1",title:"鲁迅《孔乙己》",en:"Lu Xun · Kong Yiji",vocab:["孔乙己","咸亨酒店","长衫","读书人"],grammar:["人物描写常用表达","因为……所以……"],pron:["朗读节奏与停顿"],culture:["鲁迅与中国现代文学","科举制度与旧式读书人"],homework:["阅读《孔乙己》","摘录3处人物描写"]},
+{date:"2026-09-21",week:"第2周 · Week 2",title:"鲁迅《祝福》",en:"Lu Xun · New Year’s Sacrifice",vocab:["祥林嫂","祝福","礼教","命运"],grammar:["虽然……但是……","被字句复习"],pron:["长句朗读与重音"],culture:["传统礼俗与女性处境","鲁迅小说中的社会批判"],homework:["阅读《祝福》","整理不理解的词语和段落"]},
+{date:"2026-09-29",week:"第3周 · Week 3",title:"鲁迅《铸剑》",en:"Lu Xun · Forging the Swords",vocab:["眉间尺","复仇","铸剑","黑色人"],grammar:["叙事中的时间顺序","一边……一边……"],pron:["叙事语调训练"],culture:["《故事新编》","复仇母题与古代传说改写"],homework:["阅读《铸剑》","准备一个5分钟故事梗概"]},
+{date:"2026-10-12",week:"第4周 · Week 4",title:"鲁迅《故乡》",en:"Lu Xun · My Old Home",vocab:["闰土","故乡","隔膜","希望"],grammar:["过去与现在的对比表达","越来越……"],pron:["感情色彩与朗读"],culture:["乡土中国与社会变迁","鲁迅笔下的闰土形象"],homework:["阅读《故乡》","比较少年闰土与成年闰土"]},
+{date:"2026-10-19",week:"第5周 · Week 5",title:"鲁迅《药》",en:"Lu Xun · Medicine",vocab:["人血馒头","革命","迷信","茶馆"],grammar:["转折关系复习","“把”字句"],pron:["对话朗读"],culture:["晚清社会与革命背景","鲁迅对启蒙问题的思考"],homework:["阅读《药》","思考题：题目为什么叫“药”？"]},
+{date:"2026-10-26",week:"第6周 · Week 6",title:"鲁迅《阿Q正传》",en:"Lu Xun · The True Story of Ah Q",vocab:["阿Q","精神胜利法","未庄","革命"],grammar:["人物评价表达","既……又……"],pron:["讽刺语气与口语表达"],culture:["“阿Q精神”与中国现代文学经典形象","讽刺艺术"],homework:["阅读选段","用200字介绍阿Q这一人物"]}
 ];
 /* ================================================== */
 const map=Object.fromEntries(COURSES.map(x=>[x.date,x]));
